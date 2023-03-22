@@ -1,0 +1,19 @@
+{
+  "name": "github-actions",
+  "version": "1.0.0",
+  "description": "API를 주기적으로 호출",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuBoks/Github-Actions.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JuBoks/Github-Actions/issues"
+  },
+  "homepage": "https://github.com/JuBoks/Github-Actions#readme"
+}
