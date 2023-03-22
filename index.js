@@ -45,7 +45,7 @@ async function callAndPost(api) {
 
   // 2. API 호출하기
   const result = await createCall(method, api.baseURL, api.path, api.header, api.params, api.body);
-  console.log(`${api.path} 호출결과: ${result}`);
+  console.log(`${api.path} 호출결과: `, result.data);
   // 3. response 를 API Validator 에게 전달하기
   const body = {
     //'action_id': ?
