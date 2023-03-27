@@ -16,18 +16,14 @@ async function start() {
   return baseAPI
     .post(`/github-action`)
     .then((response) => response.data.action_id)
-    .catch((err) => {
-      console.log(err.response);
-    });
+    .catch((err) => console.error(err.response.data, 'start Error!'));
 }
 //호출할 API 리스트 가져오기
 async function getApiList() {
   return baseAPI
     .get(`/api`)
     .then((response) => response.data)
-    .catch((err) => {
-      console.log(err.response);
-    });
+    .catch((err) => console.error(err.response.data, 'getApiList Error!'));
 }
 // 호출 결과 전달하기
 async function sendResult(body) {
@@ -63,7 +59,6 @@ async function callAndPost(actionId, api) {
 
   // 2. API 호출하기
   const result = await createCall(method, api.baseURL, api.path, api.header, api.params, api.body);
-  console.log(`${api.path} 호출결과: `, result.data);
 
   // 3. response 를 API Validator 에게 전달하기
   const body = {
@@ -71,14 +66,12 @@ async function callAndPost(actionId, api) {
     'meta_id': api.meta_id,
     'response': result.data
   };
-  // console.log('body: ', body);
+
   const data = await sendResult(body);
   return data;
 }
 
 (async () => {
-  console.log('process.env.CHK', process.env.CHK);
-
   // 1. GitHub Action 시작해서 action_id 가져오기
   const actionId = await start();
   console.log('actionId: ', actionId);
@@ -98,7 +91,6 @@ async function callAndPost(actionId, api) {
   // 4. Success, Fail 횟수 취합하기
   let success = 0, fail = 0;
   for (let el of result) {
-    console.log('el: ', el);
     if (el.result == false) fail++;
     else if (el.result == true) success++;
   }
