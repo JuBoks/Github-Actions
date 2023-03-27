@@ -77,6 +77,8 @@ async function callAndPost(actionId, api) {
 }
 
 (async () => {
+  console.log('process.env.CHK', process.env.CHK);
+
   // 1. GitHub Action 시작해서 action_id 가져오기
   const actionId = await start();
   console.log('actionId: ', actionId);
