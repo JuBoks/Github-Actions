@@ -6,8 +6,7 @@ const baseURL = 'https://j8s002.p.ssafy.io/validator';
 const baseAPI = axios.create({
   baseURL,
   headers: {
-    // 'chk': process.env.CHK,
-    'chk': '3c9ceb53eaf16cb85638af6e57922347a29e1d11998bfc1db70674f4e7fd6078',
+    'chk': process.env.CHK,
     'Content-Type': 'application/json',
   }
 });
