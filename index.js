@@ -6,7 +6,8 @@ const baseURL = 'https://j8s002.p.ssafy.io/validator';
 const baseAPI = axios.create({
   baseURL,
   headers: {
-    'chk': process.env.CHK,
+    // 'chk': process.env.CHK,
+    'chk': '3c9ceb53eaf16cb85638af6e57922347a29e1d11998bfc1db70674f4e7fd6078',
     'Content-Type': 'application/json',
   }
 });
@@ -42,14 +43,24 @@ async function sendCounts(body) {
 
 // API에 따라 axios
 async function createCall(method, baseURL, url, headers, params, body) {
-  return await axios({
-    method,
-    baseURL,
-    url,
-    headers,
-    params,
-    data: body,
-  });
+  try {
+    const response = await axios({
+      method,
+      baseURL,
+      url,
+      headers,
+      params,
+      data: body,
+    });
+    return response;
+  } catch (err) {
+    if (err.response.status >= 400) {
+      return err.response;
+    } else {
+      console.error(`Create Call Failure... ${baseURL}${url}`);
+      return { data: { status: 'FAILED' } };
+    }
+  }
 }
 
 async function callAndPost(actionId, api) {
@@ -91,6 +102,8 @@ async function callAndPost(actionId, api) {
   // 4. Success, Fail 횟수 취합하기
   let success = 0, fail = 0;
   for (let el of result) {
+    if (el === undefined) continue;
+
     if (el.result == false) fail++;
     else if (el.result == true) success++;
   }
